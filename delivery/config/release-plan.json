@@ -6,7 +6,9 @@
     "development": {
       "id": "repository.shadow.development",
       "name": "Shadow Development — Experimental",
-      "releases": [],
+      "releases": [
+        "0.1.0"
+      ],
       "version": "0.1.1"
     },
     "stable": {
@@ -21,7 +23,7 @@
   "dependencies": {
     "xbmc.python": "3.0.1"
   },
-  "distribution_version": "0.1.1-dev.1",
+  "distribution_version": "0.1.1-shk004-dev.1",
   "kodi_max": "21.9.99",
   "kodi_min": "21.0.0",
   "releases": {
@@ -30,6 +32,13 @@
       "notes": "Runtime unchanged from verified .57. Distribution-only repack excludes engineering assets. Known storage, language-scope and recovery gaps remain; this is not the Android-parity build.",
       "source": "source/script.shadow",
       "stable_approved": true
+    },
+    "0.1.0": {
+      "approval": "Founder authorised Development preparation and publication on 2026-11-04; environment review remains required",
+      "notes": "SHK-004 dev.1 controller-shell adaptation. 48 offline tests passed; native Xbox acceptance pending. Same add-on ID/profile as Stable: controlled in-place test, not side-by-side. Keep automatic updates off and retain .57 for explicit rollback.",
+      "package": "site/kodi/development/script.shadow/script.shadow-0.1.0.zip",
+      "sha256": "7e537c3b67196282bee93d72d2e3e9dd1ae55f9cbb61af8837e016e888393605",
+      "stable_approved": false
     }
   },
   "schema": 1,

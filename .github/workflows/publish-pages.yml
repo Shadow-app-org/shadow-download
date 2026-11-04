@@ -31,7 +31,7 @@ jobs:
       - name: Check exact reviewed candidate
         env:
           APPROVED_SHA: ${{ inputs.candidate_sha256 }}
-        run: test "$APPROVED_SHA" = 16a45b4ce9d9e790a51b58078cd85e58d4ad52caecce1a012b64c203a3a3b031
+        run: test "$APPROVED_SHA" = 39cbd432f1d3832c11c1baf3f24f5d99a3cf7b42a5641a9afcc029c583310da7
       - name: Require configured Founder approval and production settings
         env:
           GH_TOKEN: ${{ github.token }}
@@ -41,6 +41,7 @@ jobs:
           python3 -B tools/test_deployment.py
           python3 -B tools/test_pages_artifact.py
           python3 -B tools/test_source_indexes.py
+          python3 -B tools/test_development_candidate.py
           python3 -B tools/verify_production.py
       - name: Package verified Pages files without mutable composite dependencies
         run: python3 -B tools/package_pages.py _shadow_pages "$RUNNER_TEMP/artifact.tar"
