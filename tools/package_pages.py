@@ -2,6 +2,7 @@
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import sys
 import tarfile
 
@@ -24,13 +25,33 @@ def package(source, destination):
         raise ValueError('Staging inventory does not match its verified manifest')
     if any(name.startswith(('.git/', '.github/', 'delivery/', 'tools/')) for name in files):
         raise ValueError('Engineering path in Pages artifact')
-    with tarfile.open(destination, 'x', format=tarfile.USTAR_FORMAT) as archive:
-        for name, p in files.items():
-            info = tarfile.TarInfo(name)
-            info.size = p.stat().st_size
-            info.mode = 0o644
-            info.uid = info.gid = info.mtime = 0
-            with p.open('rb') as stream: archive.addfile(info, stream)
+    # Match actions/upload-pages-artifact's Linux archive operation, including
+    # the root/parent directories and ./ paths. Upload remains SHA-pinned in
+    # the workflow, avoiding a composite action's mutable nested dependencies.
+    # Keep .nojekyll: it is an explicitly approved legacy artifact.
+    with destination.open('xb') as output:
+        try:
+            subprocess.run(['tar', '--dereference', '--hard-dereference',
+                            '--directory', str(source), '-cf', '-',
+                            '--exclude=.git', '--exclude=.github', '.'],
+                           stdout=output, check=True)
+        except Exception:
+            destination.unlink(missing_ok=True)
+            raise
+    try:
+        with tarfile.open(destination) as archive:
+            members = archive.getmembers()
+            if any(not (m.isfile() or m.isdir()) for m in members):
+                raise ValueError('Links or special entries in Pages artifact')
+            names = [m.name.removeprefix('./') for m in members if m.isfile()]
+            observed = {m.name.removeprefix('./'): hashlib.sha256(archive.extractfile(m).read()).hexdigest()
+                        for m in members if m.isfile()}
+            approved = {**actual, manifest: hashlib.sha256(files[manifest].read_bytes()).hexdigest()}
+            if len(names) != len(set(names)) or observed != approved:
+                raise ValueError('Packaged files differ from verified staging inventory')
+    except Exception:
+        destination.unlink(missing_ok=True)
+        raise
     return len(files)
 
 if __name__ == '__main__':

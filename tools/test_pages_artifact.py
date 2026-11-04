@@ -25,9 +25,28 @@ class PagesArtifactTests(unittest.TestCase):
         expected = {p.relative_to(self.site).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                     for p in self.site.rglob('*') if p.is_file()}
         with tarfile.open(destination) as archive:
-            self.assertTrue(all(m.isfile() and not m.uname and not m.gname for m in archive))
-            actual = {m.name: hashlib.sha256(archive.extractfile(m).read()).hexdigest() for m in archive}
+            self.assertTrue(all(m.isfile() or m.isdir() for m in archive))
+            actual = {m.name.removeprefix('./'): hashlib.sha256(archive.extractfile(m).read()).hexdigest()
+                      for m in archive if m.isfile()}
             self.assertEqual(expected, actual)
+    def test_archive_has_root_and_parent_directories(self):
+        destination = self.root/'artifact.tar'
+        package(self.site, destination)
+        with tarfile.open(destination) as archive:
+            members = archive.getmembers()
+            self.assertEqual(members[0].name, '.')
+            self.assertTrue(members[0].isdir())
+            seen = set()
+            for member in members:
+                self.assertTrue(member.name == '.' or member.name.startswith('./'))
+                path = member.name.removeprefix('./')
+                if path != '.':
+                    self.assertIn(str(Path(path).parent), seen)
+                if member.isdir():
+                    self.assertEqual(member.mode & 0o555, 0o555)
+                    seen.add(path)
+                else:
+                    self.assertEqual(member.mode & 0o444, 0o444)
     def test_modified_and_extra_files_rejected(self):
         for mode in ['modified', 'extra', 'symlink']:
             with self.subTest(mode=mode):
