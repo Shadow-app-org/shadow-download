@@ -6,8 +6,9 @@ import shutil
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
-from check_deployment_settings import validate
+from check_deployment_settings import validate, check, FOUNDER_ACCOUNT_ID, REPO
 from verify_production import ROOT, MANIFEST
 sys.path.insert(0, str(ROOT / 'delivery/tools'))
 import repository as r
@@ -17,8 +18,8 @@ class SettingsTests(unittest.TestCase):
     def setUp(self):
         self.env = {'can_admins_bypass': False,
                     'deployment_branch_policy': {'custom_branch_policies': True},
-                    'protection_rules': [{'type': 'required_reviewers', 'reviewers':
-                        [{'type': 'User', 'reviewer': {'id': 352272508}}]}]}
+                    'protection_rules': [{'type': 'required_reviewers', 'prevent_self_review': True, 'reviewers':
+                        [{'type': 'User', 'reviewer': {'id': FOUNDER_ACCOUNT_ID}}]}]}
         self.policies = {'total_count': 1, 'branch_policies': [{'name': 'main', 'type': 'branch'}]}
         self.pages = {'build_type': 'workflow', 'https_enforced': True, 'cname': None,
                       'html_url': 'https://shadow-app-org.github.io/shadow-download/'}
@@ -26,7 +27,8 @@ class SettingsTests(unittest.TestCase):
         validate(self.env, self.policies, self.pages)
     def test_unsafe_settings_rejected(self):
         for mode in ['no-review', 'other-reviewer', 'extra-reviewer', 'bypass', 'unrestricted',
-                     'wildcard', 'tag', 'extra-policy', 'branch-pages', 'http', 'other-host', 'cname']:
+                     'wildcard', 'tag', 'extra-policy', 'branch-pages', 'http', 'other-host', 'cname',
+                     'self-review-disabled', 'self-review-missing', 'automation-reviewer']:
             with self.subTest(mode=mode):
                 e, b, p = copy.deepcopy((self.env, self.policies, self.pages))
                 if mode == 'no-review': e['protection_rules'] = []
@@ -41,7 +43,27 @@ class SettingsTests(unittest.TestCase):
                 if mode == 'http': p['https_enforced'] = False
                 if mode == 'other-host': p['html_url'] = 'https://example.com/'
                 if mode == 'cname': p['cname'] = 'example.com'
+                if mode == 'self-review-disabled': e['protection_rules'][0]['prevent_self_review'] = False
+                if mode == 'self-review-missing': e['protection_rules'][0].pop('prevent_self_review')
+                if mode == 'automation-reviewer': e['protection_rules'][0]['reviewers'][0]['reviewer']['id'] = 352272508
                 with self.assertRaises(AssertionError): validate(e, b, p)
+    def test_read_only_inspection_on_preparation_branch(self):
+        with patch.dict('os.environ', {'GITHUB_REPOSITORY': REPO, 'GITHUB_REF': 'refs/pull/3/merge'}, clear=True):
+            with patch('check_deployment_settings.get', side_effect=[self.env, self.policies, self.pages]) as get:
+                check(inspect_only=True)
+                self.assertEqual(get.call_count, 3)
+    def test_publication_context_guards(self):
+        for repo, ref, actor in [(REPO, 'refs/pull/3/merge', '352272508'),
+                                 (REPO, 'refs/heads/main', str(FOUNDER_ACCOUNT_ID)),
+                                 ('other/repo', 'refs/heads/main', '352272508'),
+                                 (REPO, 'refs/heads/main', '')]:
+            with self.subTest(repo=repo, ref=ref, actor=actor):
+                with patch.dict('os.environ', {'GITHUB_REPOSITORY': repo, 'GITHUB_REF': ref, 'GITHUB_ACTOR_ID': actor}, clear=True):
+                    with patch('check_deployment_settings.get') as get:
+                        with self.assertRaises(AssertionError): check()
+                        get.assert_not_called()
+        with patch.dict('os.environ', {'GITHUB_REPOSITORY': REPO, 'GITHUB_REF': 'refs/heads/main', 'GITHUB_ACTOR_ID': '352272508'}, clear=True):
+            with patch('check_deployment_settings.get', side_effect=[self.env, self.policies, self.pages]): check()
 
 class CandidateTests(unittest.TestCase):
     def test_tampering_rejected(self):

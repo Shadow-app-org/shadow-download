@@ -1,69 +1,71 @@
-# SHK-003 production integration
+# SHK-003 corrected candidate - final preparation
 
-This candidate makes Shadow organisation hosting self-contained. It does not merge, deploy, change GitHub settings, or establish Xbox acceptance. Licensing and Android parity remain separate roadmaps.
+## Authority and status
 
-## Frozen distribution
+On 4 November 2026 the Founder authorised integrating PR #4 into PR #3's preparation branch and adopted a solo-founder policy with zero required PR approvals. This supersedes the earlier independent-review requirement. Required PRs, checks, branch currency, blocked force pushes/deletion, no bypass and Founder environment approval remain required.
 
-- Migration PR #1 remains unchanged at `4d3db4a3f447a98ffc141acf695911e4d42d48d3`.
-- Source: this organisation's verified Actions artifact `13309941261`, run `41805413025`.
+PR #4 was integrated into `deployment/shk-003-ready` by merge commit `cd8f20c74a6b12a1dfc382c6141e415654907dc0`. This is not a merge of PR #3 into main. No publication is authorised. The final PR #3 head and its successful `verify-production` run must be checked before separate Founder merge approval.
+
+## Immutable distribution
+
 - Candidate manifest SHA256: `0f900e33e81d9477ade16078830f16f0a2d2d9028a7625cbcd632102a7b57f7e`.
 - .57 runtime SHA256: `581aa60e3c3b3b702b006829140f43567eb24ee83472e6722342de08b5d9700f`.
-- `delivery/site` remains byte-for-byte identical to the verified artifact. Historical installers/checksums and all five legacy root files remain intact, including .53.
-- Stable advertises .57 and repository installer 0.1.1. Development has repository installer 0.1.1 and no application release.
-- Current feeds/installers use `https://shadow-app-org.github.io/shadow-download/kodi/`. Frozen 0.1.0 installer archives retain their original URLs; they are historical downloads, not the current bootstrap. Install 0.1.1 explicitly to adopt organisation hosting.
-- Production verification and publishing read committed files only. They do not download the old personal repository or expiring migration artifact. The recovery script remains historical evidence, with no active recovery workflow.
+- Full staged-site manifest SHA256: `0029064a968b2fc5e9a48ea0761d642938a411742b12ecb95a9afc2f6f199af5`.
+- All ten historical archive/checksum files and five legacy root files remain unchanged. The exported public site still contains 35 files.
+- Stable / Tester is one combined feed advertising .57. Development has no application release. Both current repository installers are 0.1.1 and use the organisation URL.
+- Historical 0.1.0 installers retain their original URLs; they are not the current bootstrap. The .53 archive and its historical engineering/account references remain unchanged.
+- Production uses committed organisation files only; it does not download the personal source repository or an expiring migration artifact. Application functionality, licensing and Android parity are unchanged.
 
-## Transfer and verification
+## Corrected publishing preparation
 
-The temporary preparation PR uses GitHub's own artifact download and Git operations to create `deployment/shk-003-ready`. It validates every artifact file against a pinned inventory before using it. Its temporary `contents: write` token can create that review branch; no Pages or deployment permission is granted. It refuses to overwrite an existing destination branch. The final branch deletes the temporary importer and recovery workflow.
+PR #4 replaces the Pages-upload composite's mutable nested action with a local checked tar packager and full-SHA `actions/upload-artifact`. The existing publication job remains full-SHA pinned. The installation guide now correctly selects the Stable installer directly from the `/kodi/` listing.
 
-Local verification passed: five test methods covering twelve unsafe settings, four candidate mutations, bad approval/legacy hashes and four private-origin update scenarios. The staged output has 35 files; full-site manifest SHA256 is `0029064a968b2fc5e9a48ea0761d642938a411742b12ecb95a9afc2f6f199af5`. GitHub server-side import succeeded in run `41811290436`. Final production CI remains a separate check.
+The settings checker now matches the existing Founder reviewer by stable GitHub account ID, rather than assuming the automation account is the Founder reviewer. It explicitly requires self-review prevention, no administrator bypass, a single main branch deployment rule, workflow-based Pages, HTTPS and the expected organisation URL with no custom domain.
 
-Production CI stages the complete site, validates hashes, URLs, packages and channel boundaries, tests candidate tampering, and tests incorrect deployment settings. The private-origin update model is a model only, not real Kodi execution. Existing runtime tests are not re-claimed as newly executed.
+The production verification job performs a read-only settings inspection from the same-repository preparation PR with `contents: read`, `actions: read` and `pages: read`. Inspection neither creates a deployment nor changes settings. Publication preflight still requires main and a dispatch actor different from the Founder reviewer. Failures stop the workflow; no broad PAT or protection bypass is used.
 
-## Observed GitHub controls, 4 November 2026
+The suite contains seven deployment/integrity/context test methods and three artifact tests. It covers fifteen unsafe setting variants, wrong branch/actor/repository context, candidate mutations, immutable files, update-origin models and exact tar contents. These are distribution checks, not physical Kodi execution or a new application regression run.
 
-Ruleset `26515183` is active on `main`: one PR approval, dismiss stale reviews, resolve review threads, prohibit deletion and force-push; current account cannot bypass. No required status-check rule was present in the observed ruleset. The classic branch-protection endpoint returned integration permission denied; this does not invalidate the readable ruleset evidence.
+## Current controls
 
-Pages, environment reviewers, action allowlists and repository default workflow permissions have NOT been independently inspected in this session. Do not mark deployment ready until the following settings are verified. The publisher fails closed if its runtime settings API check is denied or finds a mismatch; do not add a broad PAT or remove that guard to make it pass.
+The live Protect main ruleset was inspected after the Founder saved it: active on main, required PR, zero required approving reviews, stale-review dismissal, resolved conversations, deletion/force-push restrictions, required `verify-production` from GitHub Actions and strict up-to-date checks. The current connection cannot bypass. The Founder confirmed an empty bypass list; the limited ruleset response does not enumerate all bypass actors.
 
-## Exact manual settings before merge/publication
+The Founder confirmed Pages Source = GitHub Actions, HTTPS enabled and no custom domain. The environment has a single Founder reviewer, self-review prevention enabled, administrator bypass disabled and main-only deployments with no tags. The read-only CI audit must additionally pass against those live settings on the final candidate.
 
-Repository: `Shadow-app-org/shadow-download`.
+Keep repository default workflow permissions read-only and the restricted action policy. The production tree contains only verification and manual publication workflows. Required action pins are:
 
-1. **Settings → Pages → Build and deployment → Source:** GitHub Actions. **Enforce HTTPS:** enabled. No custom domain. Expected site: `https://shadow-app-org.github.io/shadow-download/`. Do not enable branch publication of the repository root, which contains engineering files.
-2. **Settings → Environments → github-pages:** required reviewer `shadowapporg` only; disable administrator bypass. Deployment branches and tags: Selected branches and tags, one **branch** rule `main`, no wildcard/tag/PR rules.
-3. Preserve existing self-review restrictions. If Prevent self-review is enabled, another authorised operator must dispatch the publication and the Founder approves it. Do not disable protection to solve a same-account approval block.
-4. **Settings → Rules → Rulesets → Protect main:** retain existing controls and add required successful status check `verify-production` after it has run. Require branch to be up to date. No bypass actors. A separate authorised reviewer must approve a PR authored by `shadowapporg`; Founder deployment approval is a separate gate.
-5. **Settings → Actions → General:** retain the restricted action allowlist and full SHA pinning. Required actions: `actions/checkout`, `actions/upload-artifact`, `actions/upload-pages-artifact`, `actions/deploy-pages`; the temporary importer also needs `actions/download-artifact`. Default workflow permissions: read repository contents. Keep Actions creating/approving pull requests disabled. Require approval for fork workflows. No PAT, cloud secret or paid hosting is needed.
-6. Review final commit, CI and this report; obtain explicit Founder merge/publication approval. Merge only the final self-contained production PR. PR #1 is retained as historical evidence; do not merge the temporary transfer PR. Closing superseded PRs is housekeeping, not permission to deploy.
+- `actions/checkout@11d5960a326750d5838078e36cf38b85af677262`
+- `actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02`
+- `actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e`
 
-## Publication after approval
+## Separate approval sequence
 
-Run **Publish Founder-approved Shadow repository** from `main`. Enter the manifest SHA above and `PUBLISH REVIEWED SHADOW CANDIDATE`. The verify job checks live Pages/environment settings and builds an allowlisted site. Only the publish job receives `pages: write` and `id-token: write`, behind `github-pages` approval. Review its exact commit before approving. Neither a push nor a PR merge dispatches publication.
+A. After final SHA, complete CI, live settings audit and branch currency are verified, request explicit Founder approval to merge PR #3 into main. Zero required GitHub review approvals does not grant autonomous merge permission.
 
-After publication, run:
+B. After an authorised merge, recheck main and request separate publication approval. Only after B may the authorised automation account dispatch **Publish Founder-approved Shadow repository** on main with the exact manifest SHA above and `PUBLISH REVIEWED SHADOW CANDIDATE`. The Founder then approves `github-pages` using the configured reviewer account. Do not initiate the run as that same reviewer: self-review prevention must remain enabled.
 
-```sh
-python3 -B delivery/tools/check_https.py --site delivery/site --base https://shadow-app-org.github.io/shadow-download/kodi/
-```
+Only the deployment job receives `pages: write` and `id-token: write`, after verification and the environment approval gate. Pushes, PR updates and merging PR #3 do not automatically publish. A successful read-only audit does not consume or replace the eventual Founder deployment approval.
 
-Require HTTPS with system certificate verification, HTTP 200, no redirects, and exact bytes for each catalogue, checksum, installer and .57 archive. Check the five legacy root URLs against `delivery/config/legacy-hashes.json` too. Record the deployment URL, commit, workflow run and full-site manifest before Xbox testing.
+## Distribution and Xbox acceptance
 
-## Xbox acceptance
+Website: `https://shadow-app-org.github.io/shadow-download/`.
+Kodi source: `https://shadow-app-org.github.io/shadow-download/kodi/`.
+The website root retains the legacy .53 landing page; use `/kodi/` for the current Stable installer.
 
-Follow `delivery/INSTALL.txt`: add the organisation `/kodi/` source, select **stable**, install `repository.shadow.stable-0.1.1.zip`, then install Shadow from **Shadow Stable / Tester → Program add-ons**. Verify existing settings survive, .57 launches and plays an authorised stream, and controller-only navigation works. For manual ZIP installs, explicitly select/reinstall .57 from this repository to establish origin. Do not uninstall or reset profiles. Validate repository 0.1.0 → 0.1.1 update and confirm all resulting feed URLs are organisation URLs. Test a future application update only with a separately approved higher-version candidate; .57 alone cannot demonstrate that path. Keep Development disabled for casual testers.
+After approved publication, verify each public file's HTTPS response, lack of redirects and exact SHA256. Use `delivery/tools/check_https.py` for the Kodi files and `delivery/config/legacy-hashes.json` for the five root files.
 
-## Rollback
+On Xbox, install official Kodi from Microsoft Store and confirm 21.x compatibility. With only the controller and on-screen keyboard, enable Unknown sources, add the HTTPS source, select `repository.shadow.stable-0.1.1.zip` directly, then choose **Install from repository > Shadow Stable / Tester > Program add-ons > Shadow**. No USB, computer or Developer Mode is required by this intended flow.
 
-- Before the first publication: close/leave the candidate PR unmerged; the old site remains untouched. Do not delete old hosting or artifacts.
-- If publication fails before deployment: cancel the run and fix the cause in a reviewed PR. A failed preparation job has no Pages write permission.
-- After an unwanted deployment: stop further dispatches; prepare a reviewed revert on `main` to the last accepted site's exact committed bytes. Preserve immutable package URLs and profiles. Update the pinned manifest only through that reviewed rollback PR, verify CI/settings, then dispatch from `main` and require Founder environment approval again. Never force-push `main` or bypass reviews.
-- For this organisation's first deployment, no previous accepted organisation deployment is recorded. Restoring the prior unpublished state requires an explicit Founder decision to unpublish the organisation site; the separate old host remains available as fallback. Do not claim a one-click rollback exists without a prior successful deployment.
-- Kodi does not automatically downgrade to a lower application version. Any manual package downgrade needs a separate approved test and a profile backup; website rollback alone does not downgrade clients.
+For old manual ZIP installs, explicitly select .57 from this repository if needed to establish update origin; preserve profiles. Use **Check for updates** and verify repository version 0.1.1. A future application update needs a separately approved higher version and actual Xbox acceptance; .57 alone cannot demonstrate that path. Keep Development disabled for casual testers. Full controller instructions are in `delivery/INSTALL.txt`.
 
-## Identity and limitations
+## Rollback and hosting retention
 
-Active distribution metadata uses Project Shadow and the organisation URL. The preserved .53 ZIP includes historical engineering files with a personal-account repository search reference. This is a known historical metadata exception, not a newly added identity disclosure; removing it would violate byte preservation. The .57 text scan found only Kodi’s generic `special://home/` path, not a personal home directory. Historical artifacts and recorded migration history are preserved, so this is not a promise of anonymity or removal of existing account linkage. The staged Pages export excludes scripts, workflow source and reports. Corrected installation/operations guides live in the repository and are not extra published paths. Required public attribution inside preserved archives must remain.
+Before publication, keep the candidate unmerged or undispatched and preserve existing hosting. If verification fails, fix it through reviewed preparation; do not remove gates. If deployment fails, inspect the live state before assuming it is unchanged.
 
-Final release blockers: Founder approval, a separate authorised PR reviewer, verified live settings and status-check protection, successful production CI, and post-publication HTTPS/Xbox acceptance. This report does not claim any of those outstanding steps has happened.
+After a bad publication, pause rollout and prepare an approved revert to the last accepted site's committed files and matching catalogues/checksums, retaining immutable archives. Use normal PR/checks, a separate merge decision and a separate environment-approved publication; never force-push main. There is no recorded prior accepted organisation deployment before this first release, so do not claim a one-click rollback exists.
+
+Website rollback does not downgrade installed Kodi applications. A manual downgrade requires separate approval and a profile-preservation plan. Keep the original personal-account repository and hosting as a temporary fallback, verifying any fallback URL before use. Do not retire it until controller-only organisation installation and a future approved application update have passed physical Xbox testing.
+
+## Evidence limits
+
+The exact final SHA and run result are recorded in PR #3 after verification. Earlier reports' independent-review and missing-status-check blockers are superseded by the Founder's policy decision and saved ruleset. Historical personal references remain preserved; active public metadata is Shadow-branded. The repository-only validator cache and historical recovery documentation are excluded from the Pages export. No anonymity guarantee, live-publication claim or physical Xbox acceptance is implied.
