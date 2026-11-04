@@ -20,3 +20,7 @@ Stable .57 unchanged; Development 0.2.0 requires native Xbox acceptance.
 Shadow 0.2.2 Development publication authorised 2026-11-04.
 Manifest: e936229722f806214158095b5ea56f3f2e8c80d13fd1e13eac1311163bcd394a
 See docs/SHK005-022-DEVELOPMENT.md; Stable remains .57.
+
+Shadow 0.2.3 Development publication authorised 2026-11-04.
+Manifest: 6e83b8fb7af014c15b7d2cf21e24f706b11f98371f2ba5a034484dee78a85672
+See docs/SHK005-023-DEVELOPMENT.md; Stable remains .57.
