@@ -1,5 +1,6 @@
 """Complete immediate-child indexes for Kodi's HTTP directory cache."""
 from html import escape, unescape
+import xml.etree.ElementTree as ET
 from pathlib import Path
 import re
 from urllib.parse import quote, unquote, urlsplit
@@ -27,6 +28,8 @@ def children(directory):
 
 def write_indexes(kodi_root):
     root = Path(kodi_root)
+    development_feed = ET.parse(root / 'development/addons.xml').getroot()
+    development_version = next((n.get('version') for n in development_feed if n.get('id') == 'script.shadow'), None)
     directories = [root] + sorted(p for p in root.rglob('*') if p.is_dir())
     for directory in directories:
         (directory / 'index.html').touch(exist_ok=True)
@@ -37,7 +40,7 @@ def write_indexes(kodi_root):
                     if directory == root else
                     'Use repository.shadow.stable-0.1.1.zip for Stable / Tester installation.'
                     if relative == 'stable' else
-                    'Experimental channel; no application release is offered.'
+                    (('Experimental test '+development_version+'. Replaces the local Stable add-on and shares its profile. Keep automatic updates off. Open script.shadow/ and select script.shadow-'+development_version+'.zip.' if relative == 'development' else 'Development test package '+development_version+'; native Xbox acceptance pending. Retain Stable .57 for rollback.') if development_version else 'Experimental channel; no application release is offered.')
                     if relative.startswith('development') else 'Published packages and checksums.')
         lines = ['<!doctype html>', '<html><head><meta charset="utf-8">',
                  '<title>' + escape(title) + '</title></head><body>',

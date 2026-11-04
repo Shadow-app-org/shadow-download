@@ -22,6 +22,7 @@ jobs:
           python3 -B tools/test_deployment.py
           python3 -B tools/test_pages_artifact.py
           python3 -B tools/test_source_indexes.py
+          python3 -B tools/test_development_candidate.py
           python3 -B tools/verify_production.py
       - name: Read-only verification of existing Founder deployment settings
         if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository

@@ -8,3 +8,7 @@ See docs/DEPLOYMENT-READINESS.md for verified evidence, exact GitHub settings,
 Founder approvals, publication, HTTPS/Xbox checks and rollback procedures.
 Production operates entirely from committed organisation files.
 No publication or physical Xbox acceptance is claimed.
+
+SHK-004 Development test publication: see docs/SHK004-DEVELOPMENT.md.
+Manifest: 39cbd432f1d3832c11c1baf3f24f5d99a3cf7b42a5641a9afcc029c583310da7
+Stable .57 unchanged; Development 0.1.0 requires native Xbox acceptance.

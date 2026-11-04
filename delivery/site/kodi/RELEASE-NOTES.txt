@@ -1,3 +1,9 @@
+SHK-004 dev.1 - Development only - 0.1.0
+
+SHK-004 dev.1 controller-shell adaptation. 48 offline tests passed; native Xbox acceptance pending. Same add-on ID/profile as Stable: controlled in-place test, not side-by-side. Keep automatic updates off and retain .57 for explicit rollback.
+New Home, five-icon dock, Live TV panel and background saved-provider restoration using existing permission grants. Playback/account baseline retained. Android animation, recovery-policy parity and licensing are outside this increment. Stable .57 is unchanged.
+
+Historical SHK-003 notes (previous distribution):
 Shadow distribution 0.1.0-dev.1
 Source commit: 355a121a4de9efd0affb7e473a71a8f54c0dc676
 
