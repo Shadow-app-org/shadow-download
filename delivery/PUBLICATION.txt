@@ -16,3 +16,7 @@ Stable .57 unchanged; Development 0.1.0 requires native Xbox acceptance.
 SHK-005 Development test publication: see docs/SHK005-DEVELOPMENT.md.
 Manifest: 64e97d50968e751b5041e907e5478566c7d371a82d75979b799f55eca26d2893
 Stable .57 unchanged; Development 0.2.0 requires native Xbox acceptance.
+
+Shadow 0.2.2 Development publication authorised 2026-11-04.
+Manifest: e936229722f806214158095b5ea56f3f2e8c80d13fd1e13eac1311163bcd394a
+See docs/SHK005-022-DEVELOPMENT.md; Stable remains .57.

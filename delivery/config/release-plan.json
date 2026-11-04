@@ -7,7 +7,7 @@
       "id": "repository.shadow.development",
       "name": "Shadow Development — Experimental",
       "releases": [
-        "0.2.0"
+        "0.2.2"
       ],
       "version": "0.1.1"
     },
@@ -24,7 +24,7 @@
     "script.module.pil": "1.1.7",
     "xbmc.python": "3.0.1"
   },
-  "distribution_version": "0.1.1-shk005-dev.1",
+  "distribution_version": "0.1.1-shk005-dev.2-r1",
   "kodi_max": "21.9.99",
   "kodi_min": "21.0.0",
   "releases": {
@@ -46,6 +46,13 @@
       "notes": "SHK-005 dev.1 Artwork Glass development candidate. 75 offline tests passed; native Kodi/Xbox visual acceptance pending. Optional autolaunch and Android-reference eclipse animation, custom controller surfaces, connection passcode, and Privacy Coming soon. Same add-on ID/profile; retain .57 and 0.1.0 for explicit rollback. Keep automatic updates off for controlled testing.",
       "package": "site/kodi/development/script.shadow/script.shadow-0.2.0.zip",
       "sha256": "9262896a78320b2f0e74e93bdf95bce1a224cac6bf4c47c927021018bf1fa51d",
+      "stable_approved": false
+    },
+    "0.2.2": {
+      "approval": "Founder authorised publication to Kodi Development on 2026-11-04",
+      "notes": "Shadow 0.2.2 Development candidate: revised texture loading, typography, empty-state layout, progress placement and focus styling. Movies and Series request EN / ENG / English / UK labelled categories; no automatic full-catalogue fallback. 90 offline tests passed; Xbox rendering, provider filtering and performance acceptance pending. Blur depends on optional Pillow availability. Stable .57 and earlier development packages retained. Keep automatic updates off for controlled testing.",
+      "package": "site/kodi/development/script.shadow/script.shadow-0.2.2.zip",
+      "sha256": "c8e8315a82d18e26b09030859f090649ec34371205af9f087dcbe51abf94871f",
       "stable_approved": false
     }
   },

@@ -31,7 +31,7 @@ jobs:
       - name: Check exact reviewed candidate
         env:
           APPROVED_SHA: ${{ inputs.candidate_sha256 }}
-        run: test "$APPROVED_SHA" = 64e97d50968e751b5041e907e5478566c7d371a82d75979b799f55eca26d2893
+        run: test "$APPROVED_SHA" = e936229722f806214158095b5ea56f3f2e8c80d13fd1e13eac1311163bcd394a
       - name: Require configured Founder approval and production settings
         env:
           GH_TOKEN: ${{ github.token }}
