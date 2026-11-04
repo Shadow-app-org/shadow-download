@@ -1,3 +1,8 @@
+SHK-005 dev.1 - Development only - 0.2.0
+
+SHK-005 dev.1 Artwork Glass development candidate. 75 offline tests passed; native Kodi/Xbox visual acceptance pending. Optional autolaunch and Android-reference eclipse animation, custom controller surfaces, connection passcode, and Privacy Coming soon. Same add-on ID/profile; retain .57 and 0.1.0 for explicit rollback. Keep automatic updates off for controlled testing.
+
+Previous release notes:
 SHK-004 dev.1 - Development only - 0.1.0
 
 SHK-004 dev.1 controller-shell adaptation. 48 offline tests passed; native Xbox acceptance pending. Same add-on ID/profile as Stable: controlled in-place test, not side-by-side. Keep automatic updates off and retain .57 for explicit rollback.
