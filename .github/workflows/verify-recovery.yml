@@ -1,0 +1,29 @@
+name: Verify unpublished Kodi migration
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  recover-and-verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: Hallettash/shadow-download
+          ref: 9e0a21712188554566ba11da3472e05a26ddd454
+          path: recovered-source
+          persist-credentials: false
+      - name: Recover and verify exact migration candidate
+        run: python3 tools/recover_candidate.py --source recovered-source --output migration-candidate
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: shk-003-unpublished-candidate
+          path: migration-candidate/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
