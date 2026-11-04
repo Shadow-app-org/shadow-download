@@ -9,7 +9,7 @@ sys.path.insert(0, str(ROOT / 'delivery/tools'))
 import repository as r
 from prepare_pages import prepare
 
-MANIFEST = '0f900e33e81d9477ade16078830f16f0a2d2d9028a7625cbcd632102a7b57f7e'
+MANIFEST = '16a45b4ce9d9e790a51b58078cd85e58d4ad52caecce1a012b64c203a3a3b031'
 RUNTIME = '581aa60e3c3b3b702b006829140f43567eb24ee83472e6722342de08b5d9700f'
 BASE = 'https://shadow-app-org.github.io/shadow-download/kodi/'
 

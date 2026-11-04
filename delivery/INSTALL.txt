@@ -1,10 +1,10 @@
 SHADOW ON XBOX — CONTROLLER-ONLY INSTALLATION GUIDE
-Candidate instructions: use only after Founder-approved publication and HTTPS checks.
+Listing-correction instructions: use after this correction is approved, published and checked.
 
 You need an Xbox Series S/X, controller, internet and Kodi 21.x from the Xbox
 Microsoft Store. You do not need USB storage, a computer or Developer Mode.
 
-Proposed source address (NOT LIVE as part of this release yet):
+Source address (existing site is live; corrected folder listings await publication):
 https://shadow-app-org.github.io/shadow-download/kodi/
 
 1. Open Kodi. Select the Settings cog.
@@ -18,8 +18,9 @@ https://shadow-app-org.github.io/shadow-download/kodi/
 5. Name the source Shadow and confirm OK.
 6. Return to the Kodi home screen > Add-ons > package/open-box icon.
 7. Select Install from zip file > Shadow.
-8. Select repository.shadow.stable-0.1.1.zip from the source listing.
-   The /kodi/ page links directly to that ZIP; no separate stable folder is required. Wait for the installed notification.
+8. Open stable, then select repository.shadow.stable-0.1.1.zip.
+   Choose version 0.1.1, not the retained historical 0.1.0 installer.
+   Wait for the installed notification.
    This is downloaded directly from HTTPS; there is no USB/local transfer step.
 9. Select Install from repository > Shadow Stable / Tester.
 10. Open Program add-ons > Shadow > Install. Confirm any dependency information.
@@ -34,7 +35,9 @@ Do not uninstall Shadow or delete its settings. Install the repository first,
 then open Shadow's add-on information. Use Versions (or Update, depending on
 skin) to explicitly select 0.0.57 from Shadow Stable / Tester. A same-version
 reinstall may be needed to establish repository origin after a manual ZIP
-installation. This adoption path must be physically verified. If your installed
+installation. The Founder confirmed a same-version repository installation on Xbox Series S
+with Kodi 21.2, displayed version 0.0.57 and normal operation on 4 November 2026.
+A future higher-version update remains untested. If your installed
 version is newer, stop and use the controlled rollback plan; Kodi will not
 automatically downgrade just because .57 is offered.
 
@@ -53,5 +56,12 @@ webpage or a login page is not a working Kodi source. Do not reset Kodi, remove
 all settings, disable certificate checks or enter provider credentials on the
 download site. Report the failure before trying destructive workarounds.
 
-Actual controller-only Xbox acceptance is pending. These are the intended
-documented steps, not a claim that they have already succeeded on Xbox.
+PHYSICAL ACCEPTANCE
+The initial repository installation and 0.0.57 launch were confirmed on Xbox
+Series S / Kodi 21.2 on 4 November 2026, using the /kodi/stable/ source and
+a full Kodi restart to clear the incomplete source listing cache.
+The corrected /kodi/ > stable route without a restart still requires retesting
+after publication. Existing sessions may need one full Kodi quit/reopen to
+discard an old cached listing. Do not erase settings or uninstall Shadow.
+Keep original hosting available until a future approved version update has
+also passed physical Xbox testing.

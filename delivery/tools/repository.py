@@ -12,6 +12,7 @@ import sys
 from urllib.parse import urlsplit, unquote
 import xml.etree.ElementTree as ET
 import zipfile
+from source_indexes import write_indexes, validate_indexes
 
 ROOT = Path(__file__).resolve().parents[1]
 EPOCH = (2026, 11, 3, 0, 0, 0)
@@ -156,10 +157,6 @@ def build(plan, destination, commit, source_root=ROOT, previous=None):
         put(destination,directory+'/'+bootstrap+'.sha256',(digest(rblob)+'\n').encode())
         index=xml_bytes(listing);put(destination,directory+'/addons.xml',index)
         put(destination,directory+'/addons.xml.sha256',(digest(index)+'\n').encode())
-        html='<!doctype html><html><head><meta charset="utf-8"><title>'+cfg['name']+'</title></head><body><h1>'+cfg['name']+'</h1><ul><li><a href="'+bootstrap+'">'+bootstrap+'</a></li></ul><p>'+('Approved baseline: .57. Known issues remain.' if channel=='stable' else 'Experimental channel. No application candidate has been approved for this initial feed.')+'</p></body></html>'
-        put(destination,directory+'/index.html',html.encode())
-    stable=plan['channels']['stable'];bootstrap=stable['id']+'-'+stable['version']+'.zip'
-    put(destination,'kodi/index.html',('<!doctype html><html><head><meta charset="utf-8"><title>Shadow for Kodi</title></head><body><h1>Shadow for Kodi</h1><p>Stable / Tester repository for Kodi 21. Install this repository, then choose Shadow under Program add-ons.</p><ul><li><a href="stable/'+bootstrap+'">'+bootstrap+'</a></li></ul><p>Media player only. Supply your own authorised provider. The current .57 baseline retains known issues.</p></body></html>').encode())
     put(destination,'.nojekyll',b'')
     notes='Shadow distribution '+plan['distribution_version']+'\nSource commit: '+commit+'\n\n'+'\n'.join(v+': '+plan['releases'][v]['notes'] for v in sorted(used,key=version))+'\n\nNo application functionality, licence enforcement or profile migration added. Repository package installation/update remains awaiting physical Xbox acceptance.\n'
     put(destination,'kodi/RELEASE-NOTES.txt',notes.encode())
@@ -175,6 +172,7 @@ def build(plan, destination, commit, source_root=ROOT, previous=None):
                     require(retained.is_file() and not retained.is_symlink() and digest(retained.read_bytes())==expected,'Missing retained immutable archive: '+name)
                     put(destination,name,retained.read_bytes())
                 require((destination/name).is_file() and digest((destination/name).read_bytes())==expected,'Published immutable package removed/changed: '+name)
+    write_indexes(destination / 'kodi')
     hashes=tree_hashes(destination)
     put(destination,'deployment-manifest.json',json_bytes(hashes))
     validate_site(destination,plan)
@@ -209,11 +207,7 @@ def validate_site(site, plan):
             require(p.with_suffix('.zip.sha256').read_text().strip()==digest(p.read_bytes()),'Historical/bootstrap checksum mismatch')
         bootstrap=cfg['id']+'-'+cfg['version']+'.zip'
         require((base/bootstrap).read_bytes()==(base/cfg['id']/bootstrap).read_bytes(),'Bootstrap differs from update package')
-    # Check every actual directory-index link resolves locally, without redirects/authentication.
-    for p in site.rglob('index.html'):
-        for href in re.findall(r'href="([^"]+)"',p.read_text()):
-            require(not urlsplit(href).scheme and '..' not in PurePosixPath(href).parts,'Unsafe index link')
-            require((p.parent/unquote(href)).is_file(),'Broken source link')
+    validate_indexes(site / 'kodi')
     return True
 
 def update_model(installed, origin, feeds):
