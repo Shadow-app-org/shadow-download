@@ -17,6 +17,8 @@ This candidate makes Shadow organisation hosting self-contained. It does not mer
 
 The temporary preparation PR uses GitHub's own artifact download and Git operations to create `deployment/shk-003-ready`. It validates every artifact file against a pinned inventory before using it. Its temporary `contents: write` token can create that review branch; no Pages or deployment permission is granted. It refuses to overwrite an existing destination branch. The final branch deletes the temporary importer and recovery workflow.
 
+Local verification passed: five test methods covering twelve unsafe settings, four candidate mutations, bad approval/legacy hashes and four private-origin update scenarios. The staged output has 35 files; full-site manifest SHA256 is `0029064a968b2fc5e9a48ea0761d642938a411742b12ecb95a9afc2f6f199af5`. GitHub server-side import succeeded in run `41811290436`. Final production CI remains a separate check.
+
 Production CI stages the complete site, validates hashes, URLs, packages and channel boundaries, tests candidate tampering, and tests incorrect deployment settings. The private-origin update model is a model only, not real Kodi execution. Existing runtime tests are not re-claimed as newly executed.
 
 ## Observed GitHub controls, 4 November 2026
@@ -62,6 +64,6 @@ Follow `delivery/INSTALL.txt`: add the organisation `/kodi/` source, select **st
 
 ## Identity and limitations
 
-Active distribution metadata uses Project Shadow and the organisation URL. Historical artifacts and recorded migration history are preserved, so this is not a promise of anonymity or removal of existing account linkage. The staged Pages export excludes scripts, workflow source and reports. Corrected installation/operations guides live in the repository and are not extra published paths. Required public attribution inside preserved archives must remain.
+Active distribution metadata uses Project Shadow and the organisation URL. The preserved .53 ZIP includes historical engineering files with a personal-account repository search reference. This is a known historical metadata exception, not a newly added identity disclosure; removing it would violate byte preservation. The .57 text scan found only Kodi’s generic `special://home/` path, not a personal home directory. Historical artifacts and recorded migration history are preserved, so this is not a promise of anonymity or removal of existing account linkage. The staged Pages export excludes scripts, workflow source and reports. Corrected installation/operations guides live in the repository and are not extra published paths. Required public attribution inside preserved archives must remain.
 
 Final release blockers: Founder approval, a separate authorised PR reviewer, verified live settings and status-check protection, successful production CI, and post-publication HTTPS/Xbox acceptance. This report does not claim any of those outstanding steps has happened.
