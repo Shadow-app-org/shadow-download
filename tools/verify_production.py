@@ -9,8 +9,8 @@ sys.path.insert(0, str(ROOT / 'delivery/tools'))
 import repository as r
 from prepare_pages import prepare
 
-MANIFEST = '39cbd432f1d3832c11c1baf3f24f5d99a3cf7b42a5641a9afcc029c583310da7'
-DEVELOPMENT = '7e537c3b67196282bee93d72d2e3e9dd1ae55f9cbb61af8837e016e888393605'
+MANIFEST = '64e97d50968e751b5041e907e5478566c7d371a82d75979b799f55eca26d2893'
+DEVELOPMENT = '9262896a78320b2f0e74e93bdf95bce1a224cac6bf4c47c927021018bf1fa51d'
 RUNTIME = '581aa60e3c3b3b702b006829140f43567eb24ee83472e6722342de08b5d9700f'
 BASE = 'https://shadow-app-org.github.io/shadow-download/kodi/'
 
@@ -21,11 +21,11 @@ def verify(output):
     legacy = json.loads((delivery / 'config/legacy-hashes.json').read_text())
     r.require(plan['base_url'] == BASE, 'Unexpected production host')
     r.require(plan['channels']['stable']['releases'] == ['0.0.57'], 'Stable baseline changed')
-    r.require(plan['channels']['development']['releases'] == ['0.1.0'], 'Unexpected Development candidate')
-    r.require(plan['releases']['0.1.0']['stable_approved'] is False, 'Development is not Stable approved')
-    development = site / 'kodi/development/script.shadow/script.shadow-0.1.0.zip'
+    r.require(plan['channels']['development']['releases'] == ['0.2.0'], 'Unexpected Development candidate')
+    r.require(plan['releases']['0.2.0']['stable_approved'] is False, 'Development is not Stable approved')
+    development = site / 'kodi/development/script.shadow/script.shadow-0.2.0.zip'
     r.require(r.digest(development.read_bytes()) == DEVELOPMENT, 'Development candidate changed')
-    preserved = json.loads((delivery / 'config/shk003-preserved.json').read_text())
+    preserved = json.loads((delivery / 'config/shk004-preserved.json').read_text())
     for name, digest in preserved.items():
         r.require(r.digest((site / name).read_bytes()) == digest, 'Previously published artifact changed: ' + name)
     for cfg in plan['channels'].values():

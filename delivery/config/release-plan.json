@@ -7,7 +7,7 @@
       "id": "repository.shadow.development",
       "name": "Shadow Development — Experimental",
       "releases": [
-        "0.1.0"
+        "0.2.0"
       ],
       "version": "0.1.1"
     },
@@ -21,9 +21,10 @@
     }
   },
   "dependencies": {
+    "script.module.pil": "1.1.7",
     "xbmc.python": "3.0.1"
   },
-  "distribution_version": "0.1.1-shk004-dev.1",
+  "distribution_version": "0.1.1-shk005-dev.1",
   "kodi_max": "21.9.99",
   "kodi_min": "21.0.0",
   "releases": {
@@ -38,6 +39,13 @@
       "notes": "SHK-004 dev.1 controller-shell adaptation. 48 offline tests passed; native Xbox acceptance pending. Same add-on ID/profile as Stable: controlled in-place test, not side-by-side. Keep automatic updates off and retain .57 for explicit rollback.",
       "package": "site/kodi/development/script.shadow/script.shadow-0.1.0.zip",
       "sha256": "7e537c3b67196282bee93d72d2e3e9dd1ae55f9cbb61af8837e016e888393605",
+      "stable_approved": false
+    },
+    "0.2.0": {
+      "approval": "Founder authorised publication to Kodi Development for Xbox testing on 2026-11-04",
+      "notes": "SHK-005 dev.1 Artwork Glass development candidate. 75 offline tests passed; native Kodi/Xbox visual acceptance pending. Optional autolaunch and Android-reference eclipse animation, custom controller surfaces, connection passcode, and Privacy Coming soon. Same add-on ID/profile; retain .57 and 0.1.0 for explicit rollback. Keep automatic updates off for controlled testing.",
+      "package": "site/kodi/development/script.shadow/script.shadow-0.2.0.zip",
+      "sha256": "9262896a78320b2f0e74e93bdf95bce1a224cac6bf4c47c927021018bf1fa51d",
       "stable_approved": false
     }
   },
