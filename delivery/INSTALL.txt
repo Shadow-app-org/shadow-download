@@ -1,0 +1,57 @@
+SHADOW ON XBOX — CONTROLLER-ONLY INSTALLATION GUIDE
+Candidate instructions: use only after Founder-approved publication and HTTPS checks.
+
+You need an Xbox Series S/X, controller, internet and Kodi 21.x from the Xbox
+Microsoft Store. You do not need USB storage, a computer or Developer Mode.
+
+Proposed source address (NOT LIVE as part of this release yet):
+https://shadow-app-org.github.io/shadow-download/kodi/
+
+1. Open Kodi. Select the Settings cog.
+2. Open System > Add-ons. Enable Unknown sources and read Kodi's warning.
+   This allows third-party repository installation. Add-ons can access data in
+   Kodi; only use our exact verified address. Do not disable TLS validation or
+   change Xbox security settings. You may turn Unknown sources off after setup;
+   verify normal repository updates still work in your acceptance test.
+3. Return to Settings > File manager > Add source.
+4. Select <None>, enter the complete HTTPS address above, then OK.
+5. Name the source Shadow and confirm OK.
+6. Return to the Kodi home screen > Add-ons > package/open-box icon.
+7. Select Install from zip file > Shadow.
+8. Select repository.shadow.stable-0.1.1.zip from the source listing.
+   The /kodi/ page links directly to that ZIP; no separate stable folder is required. Wait for the installed notification.
+   This is downloaded directly from HTTPS; there is no USB/local transfer step.
+9. Select Install from repository > Shadow Stable / Tester.
+10. Open Program add-ons > Shadow > Install. Confirm any dependency information.
+11. Wait for the installed notification, then Open, or launch it from
+    Add-ons > Program add-ons > Shadow.
+
+The initial app is the .57 baseline. It still has the known channel filter,
+saved-login/storage and recovery limitations documented in SHK-001.
+
+ALREADY HAVE SHADOW?
+Do not uninstall Shadow or delete its settings. Install the repository first,
+then open Shadow's add-on information. Use Versions (or Update, depending on
+skin) to explicitly select 0.0.57 from Shadow Stable / Tester. A same-version
+reinstall may be needed to establish repository origin after a manual ZIP
+installation. This adoption path must be physically verified. If your installed
+version is newer, stop and use the controlled rollback plan; Kodi will not
+automatically downgrade just because .57 is offered.
+
+UPDATES
+Kodi's normal add-on update settings control notifications/automatic installs.
+During first testing choose Notify, but don't install updates in System >
+Add-ons, then approve the offered update. Once accepted, Install updates
+automatically can be used. Do not enable the Development repository for casual
+testers. A repository installed alone is not proof an old ZIP-installed Shadow
+has adopted its update origin.
+
+IF SOMETHING FAILS
+Check the address and trailing slash. Photograph the exact message and record
+Kodi version, installed Shadow version and which step failed. A plain GitHub
+webpage or a login page is not a working Kodi source. Do not reset Kodi, remove
+all settings, disable certificate checks or enter provider credentials on the
+download site. Report the failure before trying destructive workarounds.
+
+Actual controller-only Xbox acceptance is pending. These are the intended
+documented steps, not a claim that they have already succeeded on Xbox.

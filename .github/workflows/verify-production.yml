@@ -1,0 +1,36 @@
+name: Verify self-contained Shadow distribution
+on:
+  pull_request:
+    branches: [main, deployment/shk-003-ready]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-production:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+      pages: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Verify immutable candidate and deployment safeguards
+        run: |
+          python3 -B tools/test_deployment.py
+          python3 -B tools/test_pages_artifact.py
+          python3 -B tools/verify_production.py
+      - name: Read-only verification of existing Founder deployment settings
+        if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -B tools/check_deployment_settings.py --inspect-only
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: shk-003-production-preview
+          path: _shadow_pages/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
