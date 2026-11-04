@@ -18,7 +18,8 @@ https://shadow-app-org.github.io/shadow-download/kodi/
 5. Name the source Shadow and confirm OK.
 6. Return to the Kodi home screen > Add-ons > package/open-box icon.
 7. Select Install from zip file > Shadow.
-8. Open stable, then select repository.shadow.stable-0.1.1.zip. Wait for the installed notification.
+8. Select repository.shadow.stable-0.1.1.zip from the source listing.
+   The /kodi/ page links directly to that ZIP; no separate stable folder is required. Wait for the installed notification.
    This is downloaded directly from HTTPS; there is no USB/local transfer step.
 9. Select Install from repository > Shadow Stable / Tester.
 10. Open Program add-ons > Shadow > Install. Confirm any dependency information.
