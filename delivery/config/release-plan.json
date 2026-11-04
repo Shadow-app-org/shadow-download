@@ -7,7 +7,7 @@
       "id": "repository.shadow.development",
       "name": "Shadow Development — Experimental",
       "releases": [
-        "0.2.2"
+        "0.2.3"
       ],
       "version": "0.1.1"
     },
@@ -24,7 +24,7 @@
     "script.module.pil": "1.1.7",
     "xbmc.python": "3.0.1"
   },
-  "distribution_version": "0.1.1-shk005-dev.2-r1",
+  "distribution_version": "0.1.1-shk005-dev.3",
   "kodi_max": "21.9.99",
   "kodi_min": "21.0.0",
   "releases": {
@@ -53,6 +53,13 @@
       "notes": "Shadow 0.2.2 Development candidate: revised texture loading, typography, empty-state layout, progress placement and focus styling. Movies and Series request EN / ENG / English / UK labelled categories; no automatic full-catalogue fallback. 90 offline tests passed; Xbox rendering, provider filtering and performance acceptance pending. Blur depends on optional Pillow availability. Stable .57 and earlier development packages retained. Keep automatic updates off for controlled testing.",
       "package": "site/kodi/development/script.shadow/script.shadow-0.2.2.zip",
       "sha256": "c8e8315a82d18e26b09030859f090649ec34371205af9f087dcbe51abf94871f",
+      "stable_approved": false
+    },
+    "0.2.3": {
+      "approval": "Founder authorised publication to Kodi Development on 2026-11-04",
+      "notes": "Shadow 0.2.3 Development: PIN and keyboard digits use explicit numeric labels instead of Kodi localisation IDs. Dialogs have opaque rounded backing under artwork to prevent underlying text bleed-through, a stronger scrim and corrected border layering. 95 offline tests passed; actual Kodi/Xbox visual acceptance remains pending. EN / ENG / English / UK catalogue filtering retained. Stable .57 and earlier development packages unchanged.",
+      "package": "site/kodi/development/script.shadow/script.shadow-0.2.3.zip",
+      "sha256": "a6ff21646c597558a38577c9ad2166d035da551667fe971cc332fd86cee299c0",
       "stable_approved": false
     }
   },

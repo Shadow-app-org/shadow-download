@@ -21,7 +21,7 @@ class PagesArtifactTests(unittest.TestCase):
                 json.loads((ROOT/'delivery/config/legacy-hashes.json').read_text()), MANIFEST)
     def test_exact_artifact_contents(self):
         destination = self.root/'artifact.tar'
-        self.assertEqual(package(self.site, destination), 45)
+        self.assertEqual(package(self.site, destination), 47)
         expected = {p.relative_to(self.site).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                     for p in self.site.rglob('*') if p.is_file()}
         with tarfile.open(destination) as archive:

@@ -1,3 +1,8 @@
+SHK-005 dev.3 - Development only - 0.2.3
+
+Shadow 0.2.3 Development: PIN and keyboard digits use explicit numeric labels instead of Kodi localisation IDs. Dialogs have opaque rounded backing under artwork to prevent underlying text bleed-through, a stronger scrim and corrected border layering. 95 offline tests passed; actual Kodi/Xbox visual acceptance remains pending. EN / ENG / English / UK catalogue filtering retained. Stable .57 and earlier development packages unchanged.
+
+Previous release notes:
 SHK-005 dev.2-r1 - Development only - 0.2.2
 
 Shadow 0.2.2 Development candidate: revised texture loading, typography, empty-state layout, progress placement and focus styling. Movies and Series request EN / ENG / English / UK labelled categories; no automatic full-catalogue fallback. 90 offline tests passed; Xbox rendering, provider filtering and performance acceptance pending. Blur depends on optional Pillow availability. Stable .57 and earlier development packages retained. Keep automatic updates off for controlled testing.
