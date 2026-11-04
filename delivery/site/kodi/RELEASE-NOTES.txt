@@ -1,0 +1,9 @@
+Shadow distribution 0.1.0-dev.1
+Source commit: 355a121a4de9efd0affb7e473a71a8f54c0dc676
+
+0.0.57: Runtime unchanged from verified .57. Distribution-only repack excludes engineering assets. Known storage, language-scope and recovery gaps remain; this is not the Android-parity build.
+
+No application functionality, licence enforcement or profile migration added. Repository package installation/update remains awaiting physical Xbox acceptance.
+
+SHK-003 migration candidate: 0.1.1 repository installers use https://shadow-app-org.github.io/shadow-download/kodi/
+The .57 runtime and historical archives remain unchanged. Publication and physical Xbox acceptance are pending.

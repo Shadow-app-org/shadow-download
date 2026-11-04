@@ -1,0 +1,37 @@
+{
+  "application_source_commit": "4cbca62902f9367f52a8b796b1ca6a20f554a4d4",
+  "base_url": "https://shadow-app-org.github.io/shadow-download/kodi/",
+  "baseline_sha256": "419057cee779b7935bf87cddf0b873288970607322b47de7a2260c13ec7394fa",
+  "channels": {
+    "development": {
+      "id": "repository.shadow.development",
+      "name": "Shadow Development — Experimental",
+      "releases": [],
+      "version": "0.1.1"
+    },
+    "stable": {
+      "id": "repository.shadow.stable",
+      "name": "Shadow Stable / Tester",
+      "releases": [
+        "0.0.57"
+      ],
+      "version": "0.1.1"
+    }
+  },
+  "dependencies": {
+    "xbmc.python": "3.0.1"
+  },
+  "distribution_version": "0.1.1-dev.1",
+  "kodi_max": "21.9.99",
+  "kodi_min": "21.0.0",
+  "releases": {
+    "0.0.57": {
+      "approval": "Founder-reported last working baseline",
+      "notes": "Runtime unchanged from verified .57. Distribution-only repack excludes engineering assets. Known storage, language-scope and recovery gaps remain; this is not the Android-parity build.",
+      "source": "source/script.shadow",
+      "stable_approved": true
+    }
+  },
+  "schema": 1,
+  "source_commit_kind": "local import of supplied .57 archive; historical original commit unavailable"
+}
